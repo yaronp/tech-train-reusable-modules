@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Routing.Patterns;
 
-namespace TechTrain.ReusableModules.WebApi.Controllers;
+namespace TechTrain.ReusableModules.ApiDescriptionValidator;
 
 public class ApiDescriptionValidator
 {
