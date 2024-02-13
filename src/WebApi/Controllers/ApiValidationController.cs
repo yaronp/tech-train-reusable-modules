@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using TechTrain.ReusableModules.ApiDescriptionValidator;
+using TechTrain.ReusableModules.Validators;
 
 namespace TechTrain.ReusableModules.WebApi.Controllers
 {
@@ -18,16 +18,21 @@ namespace TechTrain.ReusableModules.WebApi.Controllers
         [Route("/validateApi")]
         public IEnumerable<string> ValidateApi(int userId)
         {
-            var validator = new ApiDescriptionValidator.ApiDescriptionValidator();
+            var validator = new ApiDescriptionValidator();
+            var lowerCasevalidator = new UrlLowerCaseValidator();
             foreach(var group in _apiDescriptionGroupCollectionProvider.ApiDescriptionGroups.Items)
             {
                 foreach(var item in group.Items)
                 {
-                     var result = validator.Validate(item);
-                     if(result != null)
-                        yield return result;       
+                    validator.apiDescription = item;
+                    lowerCasevalidator.url = item.RelativePath;
+                    var result = validator.Validate() && lowerCasevalidator.Validate();
+
+                     if(!result)
+                        yield return "Error";       
                 }
             }
+            // add 2 new validators
         }   
     }
 }

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using TechTrain.ReusableModules.WebApi.Controllers;
-using TechTrain.ReusableModules.ApiDescriptionValidator;
+using TechTrain.ReusableModules.Validators;
 
 namespace TechTrain.ReusableModules.Tests;
 
@@ -16,7 +16,27 @@ public class ApiValidationTests
             RelativePath = "/users/{userId}/סל"
         };
 
-        var result = new ApiDescriptionValidator.ApiDescriptionValidator().Validate(description);
-        Assert.AreEqual("urls should only contain ascii characters", result);
+        var result = new Validators.ApiDescriptionValidator()
+        {
+            apiDescription = description
+        }.Validate();
+        Assert.AreEqual(false, result);
+    }
+}
+
+public class ValidateUrlLowerCase
+{
+    [TestMethod]
+    public void Validate()
+    {
+        var description = new ApiDescription
+        {
+            RelativePath = "/users/{userId}/סל"
+        };
+
+        var result = new UrlLowerCaseValidator()        {
+            url = description.RelativePath
+        }.Validate();
+        Assert.AreEqual(false, result);
     }
 }

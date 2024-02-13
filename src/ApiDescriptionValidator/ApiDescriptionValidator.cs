@@ -1,20 +1,31 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Routing.Patterns;
 
-namespace TechTrain.ReusableModules.ApiDescriptionValidator;
+namespace TechTrain.ReusableModules.Validators;
 
-public class ApiDescriptionValidator
+
+public class ApiDescriptionValidator : IValidator
 {
-    public string? Validate(ApiDescription apiDescription)
+    public ApiDescription? apiDescription { get; set; }
+    public Boolean Validate()
     {
-        if (string.IsNullOrWhiteSpace(apiDescription.RelativePath))
-            return "All Api methods should have a path";
+        if (apiDescription == null)
+            return false;
 
-        var Pattern = RoutePatternFactory.Parse(apiDescription.RelativePath);
+        if (string.IsNullOrWhiteSpace(this.apiDescription.RelativePath))
+            return false;
+
+        var Pattern = RoutePatternFactory.Parse(this.apiDescription.RelativePath);
         
         if (!apiDescription.RelativePath.All(char.IsAscii))
-            return "urls should only contain ascii characters";
+            return false;
 
-        return null;
+        return true;
     }
+
+    // url is lower case
+    // 
+
+    // consistent identifier name - all ids withing routes should share the same naming pattern 
+    // {typeName}Id, or {typeName}Name
 }
