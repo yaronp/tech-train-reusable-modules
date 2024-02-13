@@ -24,9 +24,7 @@ namespace TechTrain.ReusableModules.WebApi.Controllers
             {
                 foreach(var item in group.Items)
                 {
-                    validator.apiDescription = item;
-                    lowerCasevalidator.url = item.RelativePath;
-                    var result = validator.Validate() && lowerCasevalidator.Validate();
+                    var result = validator.Validate(item) && lowerCasevalidator.Validate(item);
 
                      if(!result)
                         yield return "Error";       

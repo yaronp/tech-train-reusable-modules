@@ -16,10 +16,7 @@ public class ApiValidationTests
             RelativePath = "/users/{userId}/סל"
         };
 
-        var result = new Validators.ApiDescriptionValidator()
-        {
-            apiDescription = description
-        }.Validate();
+        var result = new Validators.ApiDescriptionValidator().Validate(description);
         Assert.AreEqual(false, result);
     }
 }
@@ -34,9 +31,7 @@ public class ValidateUrlLowerCase
             RelativePath = "/users/{userId}/סל"
         };
 
-        var result = new UrlLowerCaseValidator()        {
-            url = description.RelativePath
-        }.Validate();
+        var result = new UrlLowerCaseValidator().Validate(description);
         Assert.AreEqual(false, result);
     }
 }

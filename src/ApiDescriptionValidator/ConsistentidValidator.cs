@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,12 @@ namespace TechTrain.ReusableModules.Validators
 {
     public class ConsistentidValidator : IValidator
     {
-        public string? url { get; set; }
-        public bool Validate()
+        public Boolean Validate(ApiDescription apiDescription)
+
         {
-            if (string.IsNullOrWhiteSpace(this.url))
+            if (string.IsNullOrWhiteSpace(apiDescription.RelativePath))
                 return false;
-            return this.url == this.url.ToLower();
+            return true;
         }
     }
 }

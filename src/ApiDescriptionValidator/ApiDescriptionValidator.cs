@@ -6,22 +6,23 @@ namespace TechTrain.ReusableModules.Validators;
 
 public class ApiDescriptionValidator : IValidator
 {
-    public ApiDescription? apiDescription { get; set; }
-    public Boolean Validate()
+    
+        public Boolean Validate(ApiDescription apiDescription)
     {
         if (apiDescription == null)
             return false;
 
-        if (string.IsNullOrWhiteSpace(this.apiDescription.RelativePath))
+        if (string.IsNullOrWhiteSpace(apiDescription.RelativePath))
             return false;
 
-        var Pattern = RoutePatternFactory.Parse(this.apiDescription.RelativePath);
-        
+        var Pattern = RoutePatternFactory.Parse(apiDescription.RelativePath);
+
         if (!apiDescription.RelativePath.All(char.IsAscii))
             return false;
 
         return true;
     }
+
 
     // url is lower case
     // 

@@ -11,12 +11,11 @@ namespace TechTrain.ReusableModules.Validators
 {
     public class UrlLowerCaseValidator : IValidator
     {
-        public string? url {  get; set; } 
-        public bool Validate()
+        public Boolean Validate(ApiDescription apiDescription)
         {
-            if (string.IsNullOrWhiteSpace(this.url))
+            if (string.IsNullOrWhiteSpace(apiDescription.RelativePath))
                 return false;
-            return this.url == this.url.ToLower();
+            return apiDescription.RelativePath == apiDescription.RelativePath.ToLower();
         }
     }
 

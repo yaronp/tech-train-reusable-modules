@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace TechTrain.ReusableModules.Validators
 {
     public interface IValidator
     {
-        Boolean Validate();
+       public Boolean Validate(ApiDescription apiDescription);
     }
 
 }
