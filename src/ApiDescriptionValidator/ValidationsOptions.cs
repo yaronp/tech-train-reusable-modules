@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Validators.Interfaces;
 
 namespace TechTrain.ReusableModules.Validators
-{   
+{
 
     public sealed class ValidationsOptions
     {
@@ -21,7 +22,6 @@ namespace TechTrain.ReusableModules.Validators
             var validators = configurationSection.GetSection("Validators");
             if (validators != null)
             {
-                // iterate over the validators
                 for ( var i = 0; i < validators.GetChildren().Count(); i++)
                 {
                     var validator = validators.GetSection(i.ToString()).Value;

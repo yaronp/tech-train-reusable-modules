@@ -1,38 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TechTrain.ReusableModules.Validators;
+using Validators;
 
-namespace ApiDescriptionValidators
+namespace TechTrain.ReusableModules.Validators
 {
-
-    public class ValidatorConfiguration
-    {
-        public List<IValidator>? Validators { get; set; }
-        public Boolean StopOnFirstFailure { get; set; }
-    }
-
-    public interface IValidatorResult
-    {
-        public Boolean IsValid { get; set; }
-        public String Message { get; set; }
-    }
 
     public class Validator
     {
-        public ValidatorConfiguration validatorConfiguration { get; set; } = new ValidatorConfiguration();
-
-        public List<IValidatorResult> Validate()
+        public List<ValidatorResult> Validate(ApiDescription apiDescription)
         {
-            return new List<IValidatorResult>();
+            var result = new List<ValidatorResult>();
+            // iterate ValidationsOptions.Instance.Validators on each validator call Validate method and collect results to result, return result
+
+            foreach(var v in ValidationsOptions.Instance.Validators)
+            {
+                result.Add(v.Validate(apiDescription));
+            }
+            return result; 
         }
-        // api surface to validators
-
-        // configuration with list of validators to run allowing to select which validations to run
-
-        // create response object instead of boolean
     }
 }

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Routing.Patterns;
+using Validators;
+using Validators.Interfaces;
 
 namespace TechTrain.ReusableModules.Validators;
 
@@ -7,20 +9,20 @@ namespace TechTrain.ReusableModules.Validators;
 public class ApiDescriptionValidator : IValidator
 {
     
-        public Boolean Validate(ApiDescription apiDescription)
+        public ValidatorResult Validate(ApiDescription apiDescription)
     {
         if (apiDescription == null)
-            return false;
+            return new ValidatorResult(false, "no apiDescription");
 
         if (string.IsNullOrWhiteSpace(apiDescription.RelativePath))
-            return false;
+            return new ValidatorResult(false, "empty path");        
 
         var Pattern = RoutePatternFactory.Parse(apiDescription.RelativePath);
 
         if (!apiDescription.RelativePath.All(char.IsAscii))
-            return false;
+            return new ValidatorResult(false,"error");
 
-        return true;
+        return new ValidatorResult(true, string.Empty);
     }
 
 

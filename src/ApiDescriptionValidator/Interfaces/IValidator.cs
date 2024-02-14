@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TechTrain.ReusableModules.Validators
+namespace Validators.Interfaces
 {
     public interface IValidator
     {
-       public Boolean Validate(ApiDescription apiDescription);
+        public ValidatorResult Validate(ApiDescription apiDescription);
     }
 
 }

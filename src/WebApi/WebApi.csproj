@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ApiDescriptionValidator\ApiDescriptionValidators.csproj" />
+    <ProjectReference Include="..\ApiDescriptionValidator\Validators.csproj" />
   </ItemGroup>
 
 </Project>
