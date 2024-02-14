@@ -18,7 +18,24 @@ namespace TechTrain.ReusableModules.WebApi.Controllers
         [Route("/validateApi")]
         public IEnumerable<string> ValidateApi(int userId)
         {
-            var validator = new ApiDescriptionValidator();
+            var v = ValidationsOptions.Instance.Validators;
+
+            foreach (var group in _apiDescriptionGroupCollectionProvider.ApiDescriptionGroups.Items)
+            {
+                foreach (var item in group.Items)
+                {
+                    foreach(var validator in v)
+                    {
+                        validator.Validate(item);
+                    }
+                }
+            }
+
+                yield return "OK";
+
+
+
+/*            var validator = new ApiDescriptionValidator();
             var lowerCasevalidator = new UrlLowerCaseValidator();
             foreach(var group in _apiDescriptionGroupCollectionProvider.ApiDescriptionGroups.Items)
             {
@@ -30,7 +47,7 @@ namespace TechTrain.ReusableModules.WebApi.Controllers
                         yield return "Error";       
                 }
             }
-            // add 2 new validators
+*/            // add 2 new validators
         }   
     }
 }
