@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Controllers;
-using TechTrain.ReusableModules.WebApi.Controllers;
 using TechTrain.ReusableModules.Validators;
+using TechTrain.ReusableModules.WebApi.Controllers;
 
 namespace TechTrain.ReusableModules.Tests;
 
@@ -17,14 +17,23 @@ public class ApiValidationTests
         };
 
         var result = new Validators.ApiDescriptionValidator().Validate(description);
-        // Assert.AreEqual(false, result);
+        Assert.AreEqual(false, result.IsValid);
     }
-}
 
-public class ValidateUrlLowerCase
-{
     [TestMethod]
-    public void Validate()
+    public void ValidateConsistency()
+    {
+        var description = new ApiDescription
+        {
+            RelativePath = "/users/{userId}/test1"
+        };
+
+        var result = new ConsistentidValidator().Validate(description);
+        Assert.AreEqual(false, result.IsValid);
+    }
+
+    [TestMethod]
+    public void ValidateLowerCase()
     {
         var description = new ApiDescription
         {
@@ -32,6 +41,6 @@ public class ValidateUrlLowerCase
         };
 
         var result = new UrlLowerCaseValidator().Validate(description);
-        // Assert.AreEqual(false, result);
+        Assert.AreEqual(false, result.IsValid);
     }
 }
